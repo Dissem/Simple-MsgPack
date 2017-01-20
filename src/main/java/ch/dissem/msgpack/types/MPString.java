@@ -21,11 +21,11 @@ public class MPString implements MPType<String> {
 
     public void pack(OutputStream out) throws IOException {
         int size = value.length();
-        if (size < 16) {
+        if (size < 32) {
             out.write(0b10100000 + size);
         } else if (size < 256) {
             out.write(0xD9);
-            out.write((byte) size);
+            out.write(size);
         } else if (size < 65536) {
             out.write(0xDA);
             out.write(ByteBuffer.allocate(2).putShort((short) size).array());
@@ -64,7 +64,7 @@ public class MPString implements MPType<String> {
             if ((firstByte & 0b11100000) == 0b10100000) {
                 size = firstByte & 0b00011111;
             } else if (firstByte == 0xD9) {
-                size = in.read() << 8 | in.read();
+                size = in.read();
             } else if (firstByte == 0xDA) {
                 size = in.read() << 8 | in.read();
             } else if (firstByte == 0xDB) {

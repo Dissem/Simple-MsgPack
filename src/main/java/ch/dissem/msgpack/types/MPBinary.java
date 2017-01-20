@@ -60,7 +60,7 @@ public class MPBinary implements MPType<byte[]> {
         public MPBinary unpack(int firstByte, InputStream in) throws IOException {
             int size;
             if (firstByte == 0xC4) {
-                size = in.read() << 8 | in.read();
+                size = in.read();
             } else if (firstByte == 0xC5) {
                 size = in.read() << 8 | in.read();
             } else if (firstByte == 0xC6) {
