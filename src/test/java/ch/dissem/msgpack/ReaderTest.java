@@ -29,9 +29,9 @@ public class ReaderTest {
 
     @Test
     public void ensureDemoJsonIsEncodedCorrectly() throws Exception {
-        MPMap<MPString, MPType<?>> object = new MPMap<>(new LinkedHashMap<MPString, MPType<?>>());
-        object.getValue().put(new MPString("compact"), new MPBoolean(true));
-        object.getValue().put(new MPString("schema"), new MPInteger(0));
+        MPMap<MPString, MPType<?>> object = new MPMap<>();
+        object.put(new MPString("compact"), new MPBoolean(true));
+        object.put(new MPString("schema"), new MPInteger(0));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         object.pack(out);
         assertThat(out.toByteArray(), is(bytes("demo.mp")));

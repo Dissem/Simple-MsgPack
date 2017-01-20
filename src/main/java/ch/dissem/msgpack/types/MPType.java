@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Representation for some msgpack encoded data.
+ * Representation of some msgpack encoded data.
  */
 public interface MPType<T> {
     interface Unpacker<M extends MPType> {

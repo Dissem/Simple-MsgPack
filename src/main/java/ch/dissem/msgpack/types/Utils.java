@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 class Utils {
+    /**
+     * Returns a {@link ByteBuffer} containing the next <code>count</code> bytes from the {@link InputStream}.
+     */
     static ByteBuffer bytes(InputStream in, int count) throws IOException {
         byte[] result = new byte[count];
         int off = 0;

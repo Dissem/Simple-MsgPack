@@ -6,13 +6,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
-public class MPMap<K extends MPType, V extends MPType> implements MPType<Map<K, V>> {
+/**
+ * Representation of a msgpack encoded map. It is recommended to use a {@link LinkedHashMap} to ensure the order
+ * of entries. For convenience, it also implements the {@link Map} interface.
+ *
+ * @param <K>
+ * @param <V>
+ */
+public class MPMap<K extends MPType, V extends MPType> implements MPType<Map<K, V>>, Map<K, V> {
     private Map<K, V> map;
+
+    public MPMap() {
+        this.map = new LinkedHashMap<>();
+    }
 
     public MPMap(Map<K, V> map) {
         this.map = map;
@@ -38,6 +46,66 @@ public class MPMap<K extends MPType, V extends MPType> implements MPType<Map<K, 
             e.getKey().pack(out);
             e.getValue().pack(out);
         }
+    }
+
+    @Override
+    public int size() {
+        return map.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return map.isEmpty();
+    }
+
+    @Override
+    public boolean containsKey(Object o) {
+        return map.containsKey(o);
+    }
+
+    @Override
+    public boolean containsValue(Object o) {
+        return map.containsValue(o);
+    }
+
+    @Override
+    public V get(Object o) {
+        return map.get(o);
+    }
+
+    @Override
+    public V put(K k, V v) {
+        return map.put(k, v);
+    }
+
+    @Override
+    public V remove(Object o) {
+        return map.remove(o);
+    }
+
+    @Override
+    public void putAll(Map<? extends K, ? extends V> map) {
+        this.map.putAll(map);
+    }
+
+    @Override
+    public void clear() {
+        map.clear();
+    }
+
+    @Override
+    public Set<K> keySet() {
+        return map.keySet();
+    }
+
+    @Override
+    public Collection<V> values() {
+        return map.values();
+    }
+
+    @Override
+    public Set<Entry<K, V>> entrySet() {
+        return map.entrySet();
     }
 
     @Override

@@ -8,6 +8,9 @@ import java.util.Arrays;
 
 import static ch.dissem.msgpack.types.Utils.bytes;
 
+/**
+ * Representation of msgpack encoded binary data a.k.a. byte array.
+ */
 public class MPBinary implements MPType<byte[]> {
     private byte[] value;
 

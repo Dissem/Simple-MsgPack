@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Objects;
 
+/**
+ * Representation of a msgpack encoded boolean.
+ */
 public class MPBoolean implements MPType<Boolean> {
     private final static int FALSE = 0xC2;
     private final static int TRUE = 0xC3;

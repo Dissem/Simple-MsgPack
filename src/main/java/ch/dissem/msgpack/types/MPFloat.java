@@ -8,6 +8,9 @@ import java.util.Objects;
 
 import static ch.dissem.msgpack.types.Utils.bytes;
 
+/**
+ * Representation of a msgpack encoded float32 number.
+ */
 public class MPFloat implements MPType<Float> {
     private float value;
 

@@ -8,6 +8,12 @@ import java.util.Objects;
 
 import static ch.dissem.msgpack.types.Utils.bytes;
 
+/**
+ * Representation of a msgpack encoded integer. The encoding is automatically selected according to the value's size.
+ * Uses long due to the fact that the msgpack integer implementation may contain up to 64 bit numbers, corresponding
+ * to Java long values. Also note that uint64 values may be too large for signed long (thanks Java for not supporting
+ * unsigned values) and end in a negative value.
+ */
 public class MPInteger implements MPType<Long> {
     private long value;
 

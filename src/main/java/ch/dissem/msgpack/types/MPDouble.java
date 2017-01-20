@@ -8,6 +8,9 @@ import java.util.Objects;
 
 import static ch.dissem.msgpack.types.Utils.bytes;
 
+/**
+ * Representation of a msgpack encoded float64 number.
+ */
 public class MPDouble implements MPType<Double> {
     private double value;
 

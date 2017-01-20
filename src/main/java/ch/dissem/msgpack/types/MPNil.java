@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * Representation of msgpack encoded nil / null.
+ */
 public class MPNil implements MPType<Void> {
     private final static int NIL = 0xC0;
 
@@ -27,7 +30,7 @@ public class MPNil implements MPType<Void> {
 
     @Override
     public String toString() {
-        return "nil";
+        return "null";
     }
 
     public static class Unpacker implements MPType.Unpacker<MPNil> {
