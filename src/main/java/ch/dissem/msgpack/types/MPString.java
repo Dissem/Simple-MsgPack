@@ -99,6 +99,50 @@ public class MPString implements MPType<String>, CharSequence {
         return value;
     }
 
+    @Override
+    public String toJson() {
+        StringBuilder result = new StringBuilder(value.length() + 4);
+        result.append('"');
+        for (int i = 0; i < value.length(); i++) {
+            char c = value.charAt(i);
+            switch (c) {
+                case '\\':
+                case '"':
+                case '/':
+                    result.append('\\').append(c);
+                    break;
+                case '\b':
+                    result.append("\\b");
+                    break;
+                case '\t':
+                    result.append("\\t");
+                    break;
+                case '\n':
+                    result.append("\\n");
+                    break;
+                case '\f':
+                    result.append("\\f");
+                    break;
+                case '\r':
+                    result.append("\\r");
+                    break;
+                default:
+                    if (c < ' ') {
+                        result.append("\\u");
+                        String hex = Integer.toHexString(c);
+                        for (int j = 0; j - hex.length() < 4; j++) {
+                            result.append('0');
+                        }
+                        result.append(hex);
+                    } else {
+                        result.append(c);
+                    }
+            }
+        }
+        result.append('"');
+        return result.toString();
+    }
+
     public static class Unpacker implements MPType.Unpacker<MPString> {
         public boolean is(int firstByte) {
             return firstByte == STR8_PREFIX || firstByte == STR16_PREFIX || firstByte == STR32_PREFIX

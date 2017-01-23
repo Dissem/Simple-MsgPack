@@ -123,20 +123,32 @@ public class MPMap<K extends MPType, V extends MPType> implements MPType<Map<K, 
 
     @Override
     public String toString() {
+        return toJson();
+    }
+
+    String toJson(String indent) {
         StringBuilder result = new StringBuilder();
-        result.append('{');
+        result.append("{\n");
         Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator();
+        String indent2 = indent + "  ";
         while (iterator.hasNext()) {
             Map.Entry<K, V> item = iterator.next();
-            result.append(item.getKey().toString());
+            result.append(indent2);
+            result.append(Utils.toJson(item.getKey(), indent2));
             result.append(": ");
-            result.append(item.getValue().toString());
+            result.append(Utils.toJson(item.getValue(), indent2));
             if (iterator.hasNext()) {
-                result.append(", ");
+                result.append(',');
             }
+            result.append('\n');
         }
-        result.append('}');
+        result.append(indent).append("}");
         return result.toString();
+    }
+
+    @Override
+    public String toJson() {
+        return toJson("");
     }
 
     public static class Unpacker implements MPType.Unpacker<MPMap> {

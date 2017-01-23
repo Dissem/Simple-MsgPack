@@ -48,6 +48,11 @@ public class MPBoolean implements MPType<Boolean> {
         return String.valueOf(value);
     }
 
+    @Override
+    public String toJson() {
+        return String.valueOf(value);
+    }
+
     public static class Unpacker implements MPType.Unpacker<MPBoolean> {
 
         public boolean is(int firstByte) {

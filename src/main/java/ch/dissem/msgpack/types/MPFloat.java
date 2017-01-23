@@ -46,6 +46,11 @@ public class MPFloat implements MPType<Float> {
         return String.valueOf(value);
     }
 
+    @Override
+    public String toJson() {
+        return String.valueOf(value);
+    }
+
     public static class Unpacker implements MPType.Unpacker<MPFloat> {
         public boolean is(int firstByte) {
             return firstByte == 0xCA;

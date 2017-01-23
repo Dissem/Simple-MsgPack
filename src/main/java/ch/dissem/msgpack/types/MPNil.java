@@ -33,6 +33,11 @@ public class MPNil implements MPType<Void> {
         return "null";
     }
 
+    @Override
+    public String toJson() {
+        return "null";
+    }
+
     public static class Unpacker implements MPType.Unpacker<MPNil> {
 
         public boolean is(int firstByte) {

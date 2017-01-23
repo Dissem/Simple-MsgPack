@@ -17,4 +17,6 @@ public interface MPType<T> {
     T getValue();
 
     void pack(OutputStream out) throws IOException;
+
+    String toJson();
 }

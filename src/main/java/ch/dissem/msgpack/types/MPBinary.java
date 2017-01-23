@@ -52,7 +52,12 @@ public class MPBinary implements MPType<byte[]> {
 
     @Override
     public String toString() {
-        return null; // TODO base64
+        return toJson();
+    }
+
+    @Override
+    public String toJson() {
+        return Utils.base64(value);
     }
 
     public static class Unpacker implements MPType.Unpacker<MPBinary> {

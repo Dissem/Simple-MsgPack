@@ -78,6 +78,11 @@ public class MPInteger implements MPType<Long> {
         return String.valueOf(value);
     }
 
+    @Override
+    public String toJson() {
+        return String.valueOf(value);
+    }
+
     public static class Unpacker implements MPType.Unpacker<MPInteger> {
         public boolean is(int firstByte) {
             switch (firstByte) {

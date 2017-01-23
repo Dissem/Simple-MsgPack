@@ -25,6 +25,7 @@ public class MPArray<T extends MPType> implements MPType<List<T>>, List<T> {
         this.array = array;
     }
 
+    @SafeVarargs
     public MPArray(T... objects) {
         this.array = Arrays.asList(objects);
     }
@@ -179,17 +180,29 @@ public class MPArray<T extends MPType> implements MPType<List<T>>, List<T> {
 
     @Override
     public String toString() {
+        return toJson();
+    }
+
+    @Override
+    public String toJson() {
+        return toJson("");
+    }
+
+    String toJson(String indent) {
         StringBuilder result = new StringBuilder();
-        result.append('[');
+        result.append("[\n");
         Iterator<T> iterator = array.iterator();
+        String indent2 = indent + "  ";
         while (iterator.hasNext()) {
             T item = iterator.next();
-            result.append(item.toString());
+            result.append(indent2);
+            result.append(Utils.toJson(item, indent2));
             if (iterator.hasNext()) {
-                result.append(", ");
+                result.append(',');
             }
+            result.append('\n');
         }
-        result.append(']');
+        result.append("]");
         return result.toString();
     }
 

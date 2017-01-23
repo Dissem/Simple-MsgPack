@@ -46,6 +46,11 @@ public class MPDouble implements MPType<Double> {
         return String.valueOf(value);
     }
 
+    @Override
+    public String toJson() {
+        return String.valueOf(value);
+    }
+
     public static class Unpacker implements MPType.Unpacker<MPDouble> {
         public boolean is(int firstByte) {
             return firstByte == 0xCB;
