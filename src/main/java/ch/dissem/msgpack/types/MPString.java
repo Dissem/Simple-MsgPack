@@ -66,7 +66,8 @@ public class MPString implements MPType<String>, CharSequence {
     }
 
     public void pack(OutputStream out) throws IOException {
-        int size = value.length();
+        byte[] bytes = value.getBytes(encoding);
+        int size = bytes.length;
         if (size < 32) {
             out.write(FIXSTR_PREFIX + size);
         } else if (size < STR8_LIMIT) {
@@ -79,7 +80,7 @@ public class MPString implements MPType<String>, CharSequence {
             out.write(STR32_PREFIX);
             out.write(ByteBuffer.allocate(4).putInt(size).array());
         }
-        out.write(value.getBytes(encoding));
+        out.write(bytes);
     }
 
     @Override

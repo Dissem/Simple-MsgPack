@@ -63,7 +63,7 @@ public class ReaderTest {
                 new MPInteger(42),
                 new MPMap<>(new HashMap<MPNil, MPNil>()),
                 new MPNil(),
-                new MPString("yay!") // TODO: emoji
+                new MPString("yay! \uD83E\uDD13")
         );
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         array.pack(out);
