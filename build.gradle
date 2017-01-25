@@ -59,9 +59,9 @@ uploadArchives {
                 url 'https://dissem.ch/msgpack'
 
                 scm {
-                    connection 'scm:git:https://github.com/Dissem/msgpack.git'
-                    developerConnection 'scm:git:git@github.com:Dissem/msgpack.git'
-                    url 'https://github.com/Dissem/msgpack.git'
+                    connection 'scm:git:https://git.dissem.ch/chris/MessagePack.git'
+                    developerConnection 'scm:git:git@git.dissem.ch:chris/MessagePack.git'
+                    url 'https://git.dissem.ch/chris/MessagePack.git'
                 }
 
                 licenses {

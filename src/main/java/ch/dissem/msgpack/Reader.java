@@ -29,16 +29,21 @@ import java.util.List;
 public class Reader {
     private List<MPType.Unpacker<?>> unpackers = new LinkedList<>();
 
-    public Reader() {
+    private static final Reader instance = new Reader();
+
+    private Reader() {
         unpackers.add(new MPNil.Unpacker());
         unpackers.add(new MPBoolean.Unpacker());
         unpackers.add(new MPInteger.Unpacker());
         unpackers.add(new MPFloat.Unpacker());
-        unpackers.add(new MPDouble.Unpacker());
         unpackers.add(new MPString.Unpacker());
         unpackers.add(new MPBinary.Unpacker());
         unpackers.add(new MPMap.Unpacker(this));
         unpackers.add(new MPArray.Unpacker(this));
+    }
+
+    public static Reader getInstance() {
+        return instance;
     }
 
     /**

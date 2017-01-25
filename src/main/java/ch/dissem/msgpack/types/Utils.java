@@ -20,8 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-class Utils {
+public class Utils {
     private static final char[] BASE64_CODES = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".toCharArray();
+    private static final MPNil NIL = new MPNil();
 
     /**
      * Returns a {@link ByteBuffer} containing the next <code>count</code> bytes from the {@link InputStream}.
@@ -82,5 +83,33 @@ class Utils {
         }
 
         return result.toString();
+    }
+
+    public static MPString mp(String value) {
+        return new MPString(value);
+    }
+
+    public static MPBoolean mp(boolean value) {
+        return new MPBoolean(value);
+    }
+
+    public static MPFloat mp(double value) {
+        return new MPFloat(value);
+    }
+
+    public static MPFloat mp(float value) {
+        return new MPFloat(value);
+    }
+
+    public static MPInteger mp(int value) {
+        return new MPInteger(value);
+    }
+
+    public static MPBinary mp(byte... data) {
+        return new MPBinary(data);
+    }
+
+    public static MPNil nil() {
+        return NIL;
     }
 }
