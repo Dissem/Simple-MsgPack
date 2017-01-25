@@ -25,23 +25,45 @@ import java.util.Objects;
 import static ch.dissem.msgpack.types.Utils.bytes;
 
 /**
- * Representation of a msgpack encoded float32 number.
+ * Representation of a msgpack encoded float32 or float64 number.
  */
-public class MPFloat implements MPType<Float> {
-    private float value;
+public class MPFloat implements MPType<Double> {
+
+    public enum Precision {FLOAT32, FLOAT64}
+
+    private final double value;
+    private final Precision precision;
 
     public MPFloat(float value) {
         this.value = value;
+        this.precision = Precision.FLOAT32;
+    }
+
+    public MPFloat(double value) {
+        this.value = value;
+        this.precision = Precision.FLOAT64;
     }
 
     @Override
-    public Float getValue() {
+    public Double getValue() {
         return value;
     }
 
+    public Precision getPrecision() {
+        return precision;
+    }
+
     public void pack(OutputStream out) throws IOException {
-        out.write(0xCA);
-        out.write(ByteBuffer.allocate(4).putFloat(value).array());
+        switch (precision) {
+            case FLOAT32:
+                out.write(0xCA);
+                out.write(ByteBuffer.allocate(4).putFloat((float) value).array());
+                break;
+            case FLOAT64:
+                out.write(0xCB);
+                out.write(ByteBuffer.allocate(8).putDouble(value).array());
+                break;
+        }
     }
 
     @Override
@@ -49,7 +71,7 @@ public class MPFloat implements MPType<Float> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MPFloat mpFloat = (MPFloat) o;
-        return Float.compare(mpFloat.value, value) == 0;
+        return Double.compare(mpFloat.value, value) == 0;
     }
 
     @Override
@@ -69,14 +91,17 @@ public class MPFloat implements MPType<Float> {
 
     public static class Unpacker implements MPType.Unpacker<MPFloat> {
         public boolean is(int firstByte) {
-            return firstByte == 0xCA;
+            return firstByte == 0xCA || firstByte == 0xCB;
         }
 
         public MPFloat unpack(int firstByte, InputStream in) throws IOException {
-            if (firstByte == 0xCA) {
-                return new MPFloat(bytes(in, 4).getFloat());
-            } else {
-                throw new IllegalArgumentException(String.format("Unexpected first byte 0x%02x", firstByte));
+            switch (firstByte) {
+                case 0xCA:
+                    return new MPFloat(bytes(in, 4).getFloat());
+                case 0xCB:
+                    return new MPFloat(bytes(in, 8).getDouble());
+                default:
+                    throw new IllegalArgumentException(String.format("Unexpected first byte 0x%02x", firstByte));
             }
         }
     }

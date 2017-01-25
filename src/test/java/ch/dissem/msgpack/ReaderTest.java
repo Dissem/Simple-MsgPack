@@ -27,13 +27,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import static ch.dissem.msgpack.types.Utils.mp;
+import static ch.dissem.msgpack.types.Utils.nil;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class ReaderTest {
     private static final Random RANDOM = new Random();
-    private Reader reader = new Reader();
+    private Reader reader = Reader.getInstance();
 
     @Test
     public void ensureDemoJsonIsParsedCorrectly() throws Exception {
@@ -44,9 +46,10 @@ public class ReaderTest {
 
     @Test
     public void ensureDemoJsonIsEncodedCorrectly() throws Exception {
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
         MPMap<MPString, MPType<?>> object = new MPMap<>();
-        object.put(new MPString("compact"), new MPBoolean(true));
-        object.put(new MPString("schema"), new MPInteger(0));
+        object.put(mp("compact"), mp(true));
+        object.put(mp("schema"), mp(0));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         object.pack(out);
         assertThat(out.toByteArray(), is(bytes("demo.mp")));
@@ -56,20 +59,45 @@ public class ReaderTest {
     @SuppressWarnings("unchecked")
     public void ensureMPArrayIsEncodedAndDecodedCorrectly() throws Exception {
         MPArray<MPType<?>> array = new MPArray<>(
-                new MPBinary(new byte[]{1, 3, 3, 7}),
-                new MPBoolean(false),
-                new MPDouble(Math.PI),
-                new MPFloat(1.5f),
-                new MPInteger(42),
-                new MPMap<>(new HashMap<MPNil, MPNil>()),
-                new MPNil(),
-                new MPString("yay! \uD83E\uDD13")
+                mp(new byte[]{1, 3, 3, 7}),
+                mp(false),
+                mp(Math.PI),
+                mp(1.5f),
+                mp(42),
+                new MPMap<MPNil, MPNil>(),
+                nil(),
+                mp("yay! \uD83E\uDD13")
         );
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         array.pack(out);
         MPType read = reader.read(new ByteArrayInputStream(out.toByteArray()));
         assertThat(read, instanceOf(MPArray.class));
         assertThat((MPArray<MPType<?>>) read, is(array));
+    }
+
+    @Test
+    public void ensureFloatIsEncodedAndDecodedCorrectly() throws Exception {
+        MPFloat expected = new MPFloat(1.5f);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        expected.pack(out);
+        MPType read = reader.read(new ByteArrayInputStream(out.toByteArray()));
+        assertThat(read, instanceOf(MPFloat.class));
+        MPFloat actual = (MPFloat) read;
+        assertThat(actual, is(expected));
+        assertThat(actual.getPrecision(), is(MPFloat.Precision.FLOAT32));
+    }
+
+    @Test
+    public void ensureDoubleIsEncodedAndDecodedCorrectly() throws Exception {
+        MPFloat expected = new MPFloat(Math.PI);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        expected.pack(out);
+        MPType read = reader.read(new ByteArrayInputStream(out.toByteArray()));
+        assertThat(read, instanceOf(MPFloat.class));
+        MPFloat actual = (MPFloat) read;
+        assertThat(actual, is(expected));
+        assertThat(actual.getValue(), is(Math.PI));
+        assertThat(actual.getPrecision(), is(MPFloat.Precision.FLOAT64));
     }
 
     @Test
