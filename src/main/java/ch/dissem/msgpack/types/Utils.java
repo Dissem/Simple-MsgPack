@@ -101,7 +101,7 @@ public class Utils {
         return new MPFloat(value);
     }
 
-    public static MPInteger mp(int value) {
+    public static MPInteger mp(long value) {
         return new MPInteger(value);
     }
 

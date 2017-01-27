@@ -101,6 +101,50 @@ public class ReaderTest {
     }
 
     @Test
+    public void ensureLongsAreEncodedAndDecodedCorrectly() throws Exception {
+        // positive fixnum
+        ensureLongIsEncodedAndDecodedCorrectly(0, 1);
+        ensureLongIsEncodedAndDecodedCorrectly(127, 1);
+        // negative fixnum
+        ensureLongIsEncodedAndDecodedCorrectly(-1, 1);
+        ensureLongIsEncodedAndDecodedCorrectly(-32, 1);
+        // uint 8
+        ensureLongIsEncodedAndDecodedCorrectly(128, 2);
+        ensureLongIsEncodedAndDecodedCorrectly(255, 2);
+        // uint 16
+        ensureLongIsEncodedAndDecodedCorrectly(256, 3);
+        ensureLongIsEncodedAndDecodedCorrectly(65535, 3);
+        // uint 32
+        ensureLongIsEncodedAndDecodedCorrectly(65536, 5);
+        ensureLongIsEncodedAndDecodedCorrectly(4294967295L, 5);
+        // uint 64
+        ensureLongIsEncodedAndDecodedCorrectly(4294967296L, 9);
+        ensureLongIsEncodedAndDecodedCorrectly(Long.MAX_VALUE, 9);
+        // int 8
+        ensureLongIsEncodedAndDecodedCorrectly(-33, 2);
+        ensureLongIsEncodedAndDecodedCorrectly(-128, 2);
+        // int 16
+        ensureLongIsEncodedAndDecodedCorrectly(-129, 3);
+        ensureLongIsEncodedAndDecodedCorrectly(-32768, 3);
+        // int 32
+        ensureLongIsEncodedAndDecodedCorrectly(-32769, 5);
+        ensureLongIsEncodedAndDecodedCorrectly(Integer.MIN_VALUE, 5);
+        // int 64
+        ensureLongIsEncodedAndDecodedCorrectly(-2147483649L, 9);
+        ensureLongIsEncodedAndDecodedCorrectly(Long.MIN_VALUE, 9);
+    }
+
+    private void ensureLongIsEncodedAndDecodedCorrectly(long val, int bytes) throws Exception {
+        MPInteger value = mp(val);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        value.pack(out);
+        MPType read = reader.read(new ByteArrayInputStream(out.toByteArray()));
+        assertThat(out.size(), is(bytes));
+        assertThat(read, instanceOf(MPInteger.class));
+        assertThat((MPInteger) read, is(value));
+    }
+
+    @Test
     public void ensureStringsAreEncodedAndDecodedCorrectly() throws Exception {
         ensureStringIsEncodedAndDecodedCorrectly(0);
         ensureStringIsEncodedAndDecodedCorrectly(31);

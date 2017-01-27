@@ -52,7 +52,7 @@ public class MPInteger implements MPType<Long> {
             } else if (value <= 0xFFFF) {
                 out.write(0xCD);
                 out.write(ByteBuffer.allocate(2).putShort((short) value).array());
-            } else if (value < 0xFFFFFFFFL) {
+            } else if (value <= 0xFFFFFFFFL) {
                 out.write(0xCE);
                 out.write(ByteBuffer.allocate(4).putInt((int) value).array());
             } else {
@@ -60,7 +60,11 @@ public class MPInteger implements MPType<Long> {
                 out.write(ByteBuffer.allocate(8).putLong(value).array());
             }
         } else {
-            if (value >= Byte.MIN_VALUE) {
+            if (value >= -32) {
+                out.write(new byte[]{
+                        (byte) value
+                });
+            } else if (value >= Byte.MIN_VALUE) {
                 out.write(0xD0);
                 out.write(ByteBuffer.allocate(1).put((byte) value).array());
             } else if (value >= Short.MIN_VALUE) {
@@ -125,8 +129,13 @@ public class MPInteger implements MPType<Long> {
                         return new MPInteger(in.read());
                     case 0xCD:
                         return new MPInteger(in.read() << 8 | in.read());
-                    case 0xCE:
-                        return new MPInteger(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
+                    case 0xCE: {
+                        long value = 0;
+                        for (int i = 0; i < 4; i++) {
+                            value = value << 8 | in.read();
+                        }
+                        return new MPInteger(value);
+                    }
                     case 0xCF: {
                         long value = 0;
                         for (int i = 0; i < 8; i++) {
