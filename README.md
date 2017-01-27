@@ -14,6 +14,16 @@ msgpack uses Semantic Versioning, meaning as long as the major version doesn't c
 update. Be aware though that this doesn't necessarily applies for SNAPSHOT builds and the development branch.
 
 
+#### Master
+[![Build Status](https://travis-ci.org/Dissem/MsgPack.svg?branch=master)](https://travis-ci.org/Dissem/MsgPack) 
+[![Code Quality](https://img.shields.io/codacy/eb92c25247b4444383b163304e57a3ce/master.svg)](https://www.codacy.com/app/chrigu-meyer/MsgPack/dashboard?bid=TODO)
+[![Test Coverage](https://codecov.io/github/Dissem/Jabit/coverage.svg?branch=master)](https://codecov.io/github/Dissem/Jabit?branch=master)
+
+#### Develop
+[![Build Status](https://travis-ci.org/Dissem/MsgPack.svg?branch=develop)](https://travis-ci.org/Dissem/MsgPack?branch=develop) 
+[![Code Quality](https://img.shields.io/codacy/eb92c25247b4444383b163304e57a3ce/develop.svg)](https://www.codacy.com/app/chrigu-meyer/MsgPack/dashboard?bid=4118049)
+[![Test Coverage](https://codecov.io/github/Dissem/MsgPack/coverage.svg?branch=develop)](https://codecov.io/github/Dissem/MsgPack?branch=develop)
+
 Limitations
 --------------
 
