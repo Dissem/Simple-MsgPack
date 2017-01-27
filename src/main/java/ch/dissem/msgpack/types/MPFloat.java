@@ -63,6 +63,8 @@ public class MPFloat implements MPType<Double> {
                 out.write(0xCB);
                 out.write(ByteBuffer.allocate(8).putDouble(value).array());
                 break;
+            default:
+                throw new IllegalArgumentException("Unknown precision: " + precision);
         }
     }
 

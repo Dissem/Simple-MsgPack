@@ -43,6 +43,8 @@ public class MPString implements MPType<String>, CharSequence {
 
     private static Charset encoding = Charset.forName("UTF-8");
 
+    private final String value;
+
     /**
      * Use this method if for some messed up reason you really need to use something else than UTF-8.
      * Ask yourself: why should I? Is this really necessary?
@@ -54,8 +56,6 @@ public class MPString implements MPType<String>, CharSequence {
     public static void setEncoding(Charset encoding) {
         MPString.encoding = encoding;
     }
-
-    private final String value;
 
     public MPString(String value) {
         this.value = value;
