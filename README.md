@@ -1,5 +1,6 @@
 msgpack
 =======
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/eb92c25247b4444383b163304e57a3ce)](https://www.codacy.com/app/chrigu-meyer/MsgPack?utm_source=github.com&utm_medium=referral&utm_content=Dissem/MsgPack&utm_campaign=badger)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/ch.dissem.msgpack/msgpack/badge.svg)](https://maven-badges.herokuapp.com/maven-central/ch.dissem.msgpack/msgpack)
 [![Javadoc](https://javadoc-emblem.rhcloud.com/doc/ch.dissem.msgpack/msgpack/badge.svg)](http://www.javadoc.io/doc/ch.dissem.msgpack/msgpack)
 [![Apache 2](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://raw.githubusercontent.com/Dissem/Jabit/master/LICENSE)
