@@ -16,8 +16,8 @@ update. Be aware though that this doesn't necessarily applies for SNAPSHOT build
 
 #### Master
 [![Build Status](https://travis-ci.org/Dissem/MsgPack.svg?branch=master)](https://travis-ci.org/Dissem/MsgPack) 
-[![Code Quality](https://img.shields.io/codacy/eb92c25247b4444383b163304e57a3ce/master.svg)](https://www.codacy.com/app/chrigu-meyer/MsgPack/dashboard?bid=TODO)
-[![Test Coverage](https://codecov.io/github/Dissem/Jabit/coverage.svg?branch=master)](https://codecov.io/github/Dissem/Jabit?branch=master)
+[![Code Quality](https://img.shields.io/codacy/eb92c25247b4444383b163304e57a3ce/master.svg)](https://www.codacy.com/app/chrigu-meyer/MsgPack/dashboard?bid=4122049)
+[![Test Coverage](https://codecov.io/github/Dissem/MsgPack/coverage.svg?branch=master)](https://codecov.io/github/Dissem/MsgPack?branch=master)
 
 #### Develop
 [![Build Status](https://travis-ci.org/Dissem/MsgPack.svg?branch=develop)](https://travis-ci.org/Dissem/MsgPack?branch=develop) 
