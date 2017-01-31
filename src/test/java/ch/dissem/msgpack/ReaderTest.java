@@ -73,6 +73,7 @@ public class ReaderTest {
         MPType read = reader.read(new ByteArrayInputStream(out.toByteArray()));
         assertThat(read, instanceOf(MPArray.class));
         assertThat((MPArray<MPType<?>>) read, is(array));
+        assertThat(read.toJson(), is("[\n  AQMDBw==,\n  false,\n  3.141592653589793,\n  1.5,\n  42,\n  {\n  },\n  null,\n  \"yay! 🤓\"\n]"));
     }
 
     @Test
@@ -217,18 +218,18 @@ public class ReaderTest {
     }
 
     @SuppressWarnings("unchecked")
-    private void ensureMapIsEncodedAndDecodedCorrectly(int length) throws Exception {
+    private void ensureMapIsEncodedAndDecodedCorrectly(int size) throws Exception {
         MPNil nil = new MPNil();
-        HashMap<MPNil, MPNil> map = new HashMap<>(length);
-        for (int i = 0; i < length; i++) {
-            map.put(nil, nil);
+        HashMap<MPInteger, MPNil> map = new HashMap<>(size);
+        for (int i = 0; i < size; i++) {
+            map.put(mp(i), nil);
         }
-        MPMap<MPNil, MPNil> value = new MPMap<>(map);
+        MPMap<MPInteger, MPNil> value = new MPMap<>(map);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         value.pack(out);
         MPType read = reader.read(new ByteArrayInputStream(out.toByteArray()));
         assertThat(read, instanceOf(MPMap.class));
-        assertThat((MPMap<MPNil, MPNil>) read, is(value));
+        assertThat((MPMap<MPInteger, MPNil>) read, is(value));
     }
 
     private String stringWithLength(int length) {
