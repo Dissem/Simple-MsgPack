@@ -147,7 +147,7 @@ public class MPString implements MPType<String>, CharSequence {
                     if (c < ' ') {
                         result.append("\\u");
                         String hex = Integer.toHexString(c);
-                        for (int j = 0; j - hex.length() < 4; j++) {
+                        for (int j = 0; j + hex.length() < 4; j++) {
                             result.append('0');
                         }
                         result.append(hex);

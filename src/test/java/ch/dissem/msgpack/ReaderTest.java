@@ -156,6 +156,16 @@ public class ReaderTest {
         ensureStringIsEncodedAndDecodedCorrectly(65536);
     }
 
+    @Test
+    public void ensureJsonStringsAreEscapedCorrectly() throws Exception {
+        StringBuilder builder = new StringBuilder();
+        for (char c = '\u0001'; c < ' '; c++) {
+            builder.append(c);
+        }
+        MPString string = new MPString(builder.toString());
+        assertThat(string.toJson(), is("\"\\u0001\\u0002\\u0003\\u0004\\u0005\\u0006\\u0007\\b\\t\\n\\u000b\\f\\r\\u000e\\u000f\\u0010\\u0011\\u0012\\u0013\\u0014\\u0015\\u0016\\u0017\\u0018\\u0019\\u001a\\u001b\\u001c\\u001d\\u001e\\u001f\""));
+    }
+
     private void ensureStringIsEncodedAndDecodedCorrectly(int length) throws Exception {
         MPString value = new MPString(stringWithLength(length));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
