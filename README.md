@@ -32,6 +32,9 @@ Limitations
 * `MPFloat` uses the data type you're using to decide on precision (float 32 or 64) - not the actual value. E.g. 0.5
   could be saved perfectly as a float 42, but if you provide a double value, it will be stored as float 64, wasting
   4 bytes.
+* If you want to use the 'ext format family', you'll need to implement and register your own `MPType` and
+  `MPType.Unpacker`. Be aware that they take precedence over the default unpackers, meaning if you accidentally define
+  your unpacker to handle strings, for example, you won't be able to unpack any regular strings anymore.
 
 Setup
 -----

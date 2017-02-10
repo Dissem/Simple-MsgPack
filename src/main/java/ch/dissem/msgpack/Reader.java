@@ -27,7 +27,7 @@ import java.util.List;
  * Reads MPType object from an {@link InputStream}.
  */
 public class Reader {
-    private List<MPType.Unpacker<?>> unpackers = new LinkedList<>();
+    private LinkedList<MPType.Unpacker<?>> unpackers = new LinkedList<>();
 
     private static final Reader instance = new Reader();
 
@@ -50,7 +50,7 @@ public class Reader {
      * Register your own extensions
      */
     public void register(MPType.Unpacker<?> unpacker) {
-        unpackers.add(unpacker);
+        unpackers.addFirst(unpacker);
     }
 
     public MPType read(InputStream in) throws IOException {
