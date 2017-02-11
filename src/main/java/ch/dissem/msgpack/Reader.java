@@ -21,7 +21,6 @@ import ch.dissem.msgpack.types.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Reads MPType object from an {@link InputStream}.
