@@ -15,14 +15,14 @@ update. Be aware though that this doesn't necessarily applies for SNAPSHOT build
 
 
 #### Master
-[![Build Status](https://travis-ci.org/Dissem/MsgPack.svg?branch=master)](https://travis-ci.org/Dissem/MsgPack) 
-[![Code Quality](https://img.shields.io/codacy/eb92c25247b4444383b163304e57a3ce/master.svg)](https://www.codacy.com/app/chrigu-meyer/MsgPack/dashboard?bid=4122049)
-[![Test Coverage](https://codecov.io/github/Dissem/MsgPack/coverage.svg?branch=master)](https://codecov.io/github/Dissem/MsgPack?branch=master)
+[![Build Status](https://travis-ci.org/Dissem/Simple-MsgPack.svg?branch=master)](https://travis-ci.org/Dissem/Simple-MsgPack) 
+[![Code Quality](https://img.shields.io/codacy/4cd1f577c18d45dc9042aac5bc20b424/master.svg)](https://www.codacy.com/app/chrigu-meyer/Simple-MsgPack/dashboard?bid=4122049)
+[![Test Coverage](https://codecov.io/github/Dissem/Simple-MsgPack/coverage.svg?branch=master)](https://codecov.io/github/Dissem/Simple-MsgPack?branch=master)
 
 #### Develop
-[![Build Status](https://travis-ci.org/Dissem/MsgPack.svg?branch=develop)](https://travis-ci.org/Dissem/MsgPack?branch=develop) 
-[![Code Quality](https://img.shields.io/codacy/eb92c25247b4444383b163304e57a3ce/develop.svg)](https://www.codacy.com/app/chrigu-meyer/MsgPack/dashboard?bid=4118049)
-[![Test Coverage](https://codecov.io/github/Dissem/MsgPack/coverage.svg?branch=develop)](https://codecov.io/github/Dissem/MsgPack?branch=develop)
+[![Build Status](https://travis-ci.org/Dissem/Simple-MsgPack.svg?branch=develop)](https://travis-ci.org/Dissem/Simple-MsgPack?branch=develop) 
+[![Code Quality](https://img.shields.io/codacy/4cd1f577c18d45dc9042aac5bc20b424/develop.svg)](https://www.codacy.com/app/chrigu-meyer/Simple-MsgPack/dashboard?bid=4118049)
+[![Test Coverage](https://codecov.io/github/Dissem/Simple-MsgPack/coverage.svg?branch=develop)](https://codecov.io/github/Dissem/Simple-MsgPack?branch=develop)
 
 Limitations
 --------------
