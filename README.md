@@ -33,7 +33,8 @@ Limitations
   could be saved perfectly as a float 42, but if you provide a double value, it will be stored as float 64, wasting
   4 bytes.
 * If you want to use the 'ext format family', you'll need to implement and register your own `MPType` and
-  `MPType.Unpacker`. Be aware that they take precedence over the default unpackers, meaning if you accidentally define
+  `MPType.Unpacker`.
+* Be aware that custom `MPType.Unpacker` take precedence over the default unpackers, i.e. if you accidentally define
   your unpacker to handle strings, for example, you won't be able to unpack any regular strings anymore.
 
 Setup
