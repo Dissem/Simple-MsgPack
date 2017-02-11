@@ -55,6 +55,7 @@ uploadArchives {
 
             pom.project {
                 name 'msgpack'
+                description 'A simple Java library for handling MessagePack data'
                 packaging 'jar'
                 url 'https://dissem.ch/msgpack'
 
