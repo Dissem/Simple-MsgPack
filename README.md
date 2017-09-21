@@ -4,14 +4,14 @@ Simple MessagePack
 [![Javadoc](https://javadoc-emblem.rhcloud.com/doc/ch.dissem.msgpack/msgpack/badge.svg)](http://www.javadoc.io/doc/ch.dissem.msgpack/msgpack)
 [![Apache 2](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://raw.githubusercontent.com/Dissem/Jabit/master/LICENSE)
 
-This is a simple Java library for handling MessagePack data. It doesn't do any object mapping, but maps to special
-objects representing MessagePack types. To build, use command `./gradlew build`.
+This is a simple Kotlin/Java library for handling MessagePack data. It doesn't do any object mapping, but maps to
+special objects representing MessagePack types. To build, use command `./gradlew build`.
 
 For most cases you might be better off using `org.msgpack:msgpack`, but I found that I needed something that generically
 represents the internal structure of the data.
 
-_Simple MessagePack_ uses Semantic Versioning, meaning as long as the major version doesn't change, nothing should break if you
-update. Be aware though that this doesn't necessarily applies for SNAPSHOT builds and the development branch.
+_Simple MessagePack_ uses Semantic Versioning, meaning as long as the major version doesn't change, nothing should break
+if you update. Be aware though that this doesn't necessarily applies for SNAPSHOT builds and the development branch.
 
 
 #### Master

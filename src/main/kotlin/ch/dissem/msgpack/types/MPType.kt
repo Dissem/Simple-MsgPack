@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-package ch.dissem.msgpack.types;
+package ch.dissem.msgpack.types
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 
 /**
  * Representation of some msgpack encoded data.
  */
-public interface MPType<T> {
-    interface Unpacker<M extends MPType> {
-        boolean is(int firstByte);
+interface MPType<out T> {
+    interface Unpacker<out M : MPType<*>> {
+        fun doesUnpack(firstByte: Int): Boolean
 
-        M unpack(int firstByte, InputStream in) throws IOException;
+        @Throws(IOException::class)
+        fun unpack(firstByte: Int, input: InputStream): M
     }
 
-    T getValue();
+    val value: T
 
-    void pack(OutputStream out) throws IOException;
+    @Throws(IOException::class)
+    fun pack(out: OutputStream)
 
-    String toJson();
+    fun toJson(): String
 }
