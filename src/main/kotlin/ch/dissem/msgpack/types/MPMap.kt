@@ -5,8 +5,6 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.nio.ByteBuffer
-import java.util.*
-import kotlin.collections.LinkedHashMap
 
 /**
  * Representation of a msgpack encoded map. It is recommended to use a [LinkedHashMap] to ensure the order
@@ -21,14 +19,18 @@ data class MPMap<K : MPType<*>, V : MPType<*>>(override val value: MutableMap<K,
     @Throws(IOException::class)
     override fun pack(out: OutputStream) {
         val size = value.size
-        if (size < 16) {
-            out.write(0x80 + size)
-        } else if (size < 65536) {
-            out.write(0xDE)
-            out.write(ByteBuffer.allocate(2).putShort(size.toShort()).array())
-        } else {
-            out.write(0xDF)
-            out.write(ByteBuffer.allocate(4).putInt(size).array())
+        when {
+            size < 16 -> {
+                out.write(0x80 + size)
+            }
+            size < 65536 -> {
+                out.write(0xDE)
+                out.write(ByteBuffer.allocate(2).putShort(size.toShort()).array())
+            }
+            else -> {
+                out.write(0xDF)
+                out.write(ByteBuffer.allocate(4).putInt(size).array())
+            }
         }
         for ((key, value1) in value) {
             key.pack(out)
@@ -68,24 +70,15 @@ data class MPMap<K : MPType<*>, V : MPType<*>>(override val value: MutableMap<K,
 
     override fun toString() = toJson()
 
-    internal fun toJson(indent: String): String {
-        val result = StringBuilder()
-        result.append("{\n")
-        val iterator = value.entries.iterator()
-        val indent2 = indent + "  "
-        while (iterator.hasNext()) {
-            val item = iterator.next()
-            result.append(indent2)
-            result.append(Utils.toJson(item.key, indent2))
-            result.append(": ")
-            result.append(Utils.toJson(item.value, indent2))
-            if (iterator.hasNext()) {
-                result.append(',')
-            }
-            result.append('\n')
+    internal fun toJson(indent: String) = if (value.entries.isEmpty()) {
+        "{}"
+    } else {
+        value.entries.joinToString(
+                separator = ",\n",
+                prefix = "{\n",
+                postfix = "\n$indent}") { i ->
+            "$indent  ${Utils.toJson(i.key, "$indent  ")}: ${Utils.toJson(i.value, "$indent  ")}"
         }
-        result.append(indent).append("}")
-        return result.toString()
     }
 
     override fun toJson(): String {
@@ -100,15 +93,14 @@ data class MPMap<K : MPType<*>, V : MPType<*>>(override val value: MutableMap<K,
 
         @Throws(IOException::class)
         override fun unpack(firstByte: Int, input: InputStream): MPMap<MPType<*>, MPType<*>> {
-            val size: Int
-            when {
-                firstByte and 0xF0 == 0x80 -> size = firstByte and 0x0F
-                firstByte == 0xDE -> size = input.read() shl 8 or input.read()
-                firstByte == 0xDF -> size = input.read() shl 24 or (input.read() shl 16) or (input.read() shl 8) or input.read()
+            val size: Int = when {
+                firstByte and 0xF0 == 0x80 -> firstByte and 0x0F
+                firstByte == 0xDE -> input.read() shl 8 or input.read()
+                firstByte == 0xDF -> input.read() shl 24 or (input.read() shl 16) or (input.read() shl 8) or input.read()
                 else -> throw IllegalArgumentException(String.format("Unexpected first byte 0x%02x", firstByte))
             }
             val map = LinkedHashMap<MPType<*>, MPType<*>>()
-            for (i in 0..size - 1) {
+            for (i in 0 until size) {
                 val key = reader.read(input)
                 val value = reader.read(input)
                 map.put(key, value)

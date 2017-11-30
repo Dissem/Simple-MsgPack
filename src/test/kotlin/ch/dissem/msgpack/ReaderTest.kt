@@ -32,7 +32,7 @@ class ReaderTest {
     fun `ensure demo json is parsed correctly`() {
         val read = Reader.read(stream("demo.mp"))
         assertThat(read, instanceOf(MPMap::class.java))
-        assertThat(read.toString(), equalTo(string("demo.json")))
+        assertThat(read.toJson(), equalTo(string("demo.json")))
     }
 
     @Test
@@ -63,7 +63,7 @@ class ReaderTest {
         assertThat(read, instanceOf(MPArray::class.java))
         @Suppress("UNCHECKED_CAST")
         assertThat(read as MPArray<MPType<*>>, equalTo(array))
-        assertThat(read.toJson(), equalTo("[\n  AQMDBw==,\n  false,\n  3.141592653589793,\n  1.5,\n  42,\n  {\n  },\n  null,\n  \"yay! 🤓\"\n]"))
+        assertThat(read.toJson(), equalTo("[\n  AQMDBw==,\n  false,\n  3.141592653589793,\n  1.5,\n  42,\n  {},\n  null,\n  \"yay! 🤓\"\n]"))
     }
 
     @Test
@@ -222,7 +222,7 @@ class ReaderTest {
     private fun ensureMapIsEncodedAndDecodedCorrectly(size: Int) {
         val nil = MPNil
         val map = HashMap<MPInteger, MPNil>(size)
-        for (i in 0..size - 1) {
+        for (i in 0 until size) {
             map.put(i.mp, nil)
         }
         val value = MPMap(map)
@@ -236,7 +236,7 @@ class ReaderTest {
 
     private fun stringWithLength(length: Int): String {
         val result = StringBuilder(length)
-        for (i in 0..length - 1) {
+        for (i in 0 until length) {
             result.append('a')
         }
         return result.toString()
